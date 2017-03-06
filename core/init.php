@@ -36,7 +36,7 @@ $GLOBALS['config'] = array(
 
 //define( 'ABPATH', 'C:/wamp/www/lsat');
 //define( 'ABPATH', '/Applications/XAMPP/xamppfiles/htdocs/LSAT');
-define( 'ABPATH', '/opt/lampp/htdocs/LSAT');
+define( 'ABPATH', './');
 
 // Autoload classes
 function autoload($class) {
@@ -45,6 +45,6 @@ function autoload($class) {
 spl_autoload_register('autoload');
 
 // Include functions
-require_once (ABPATH.'/functions/sanitize.php');
+require_once (ABPATH.'/../functions/sanitize.php');
 
-require_once(ABPATH.'/controls/PHPMailer/PHPMailerAutoload.php');
+require_once(ABPATH.'/../controls/PHPMailer/PHPMailerAutoload.php');
