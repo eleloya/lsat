@@ -18,10 +18,10 @@ session_start();
 // Create a global configuration
 $GLOBALS['config'] = array(
 	'mysql' => array(
-		'host' 		=> 'localhost',
-		'username' 	=> 'root',
-		'password' 	=> '',
-		'db' 		=> 'lsat'
+		'host' 		=> 'us-cdbr-iron-east-03.cleardb.net',
+		'username' 	=> 'baba13b108c9c0',
+		'password' 	=> 'f60c5f54',
+		'db' 		=> 'heroku_40182bcb43a327f'
 	),
 	'remember' => array(
 		'cookie_name'	=> 'hash',
