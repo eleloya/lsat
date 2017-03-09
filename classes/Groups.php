@@ -87,7 +87,27 @@ class Groups {
 			return "";
 		}
 	}
+	
+	//Regresa una lista separada por comas de los ids de los alumnos que estan inscritos a ese grupo
+	public function getAllStudentsIdsFromTeacher($teacherId = null) {
 
+		$sql = "SELECT GROUP_CONCAT(studentId SEPARATOR ', ') as studentIds FROM studentsingroup WHERE groupId in (SELECT id FROM groups WHERE groups.professor = $groupId)";
+		if(!$this->_db->query($sql, array())->error()) {
+			if($this->_db->count()) {
+				return $this->_db->first()->studentIds;
+			}
+		}else{
+			return "";
+		}
+	}
+	
+	
+	public function getAllStudentsFromTeacher($teacherId = null){
+		$studentIds = $this->getAllStudentsIdsFromTeacher($teacherId);
+		$u = new User();
+		return $u->getStudentsUserData($studentIds);
+	}
+	
 	public function getAllStudentsFromGroup($groupId = null){
 		$studentIds = $this->getAllStudentsIdsFromGroup($groupId);
 		$u = new User();
