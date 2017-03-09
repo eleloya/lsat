@@ -4,6 +4,12 @@
 
     <nav>
       <ul class="side-nav">
+        <li class="heading">Alumnos</li>
+        <li><a href="students.php">Mis alumnos</a></li>
+        <li><a href="createStudent.php">Agregar alumnos</a></li>
+				
+        <li class="divider"></li>
+				
         <li class="heading">Grupos</li>
         <li><a href="groups.php">Mis grupos </a></li>
         <li><a href="createGroup.php">Crear nuevo grupo</a></li>
