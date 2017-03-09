@@ -12,8 +12,8 @@
 
 		public function __construct($token = null) {
 			$this->_db = DB::getInstance();
-			$this->systemMail = 'lsatitesm@gmail.com';
-			$this->systemMailPassword = 'laurasanchez';
+			$this->systemMail = 'lsat.development@gmail.com';
+			$this->systemMailPassword = 'itesm2017';
 			$this->systemName = 'LSAT';
 		}
 
