@@ -7,7 +7,7 @@ $user->checkIsValidUser('teacher');
 $teacherId = $user->data()->id;
 $groups = new Groups();
 $teacherGroups = $groups->getGroupsForTeacher($teacherId);
-$students = $g->getAllStudentsFromTeacher($teacherId);
+$students = $groups->getAllStudentsFromTeacher($teacherId);
 
 
 ?>
