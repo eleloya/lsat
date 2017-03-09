@@ -39,7 +39,7 @@
 			$mail->SMTPAuth = true;
 			$mail->Host = 'smtp.gmail.com'; 
 			$mail->Port = 465;
-			$mail->SMTPSecure = 'ssl';
+			$mail->SMTPSecure = 'tls';
 			$mail->Username = $this->systemMail;
 			$mail->Password = $this->systemMailPassword;
 		$mail->IsHTML(true); // For HTML formatted mails
