@@ -90,8 +90,9 @@ class Groups {
 	
 	//Regresa una lista separada por comas de los ids de los alumnos que estan inscritos a ese grupo
 	public function getAllStudentsIdsFromTeacher($teacherId = null) {
+		if ($teacherId == null) return;
 
-		$sql = "SELECT GROUP_CONCAT(studentId SEPARATOR ', ') as studentIds FROM studentsingroup WHERE groupId in (SELECT id FROM groups WHERE groups.professor = $groupId)";
+		$sql = "SELECT GROUP_CONCAT(studentId SEPARATOR ', ') as studentIds FROM studentsingroup WHERE groupId in (SELECT id FROM groups WHERE groups.professor = $teacherId)";
 		if(!$this->_db->query($sql, array())->error()) {
 			if($this->_db->count()) {
 				return $this->_db->first()->studentIds;
@@ -103,6 +104,8 @@ class Groups {
 	
 	
 	public function getAllStudentsFromTeacher($teacherId = null){
+		if ($teacherId == null) return;
+		
 		$studentIds = $this->getAllStudentsIdsFromTeacher($teacherId);
 		$u = new User();
 		return $u->getStudentsUserData($studentIds);
