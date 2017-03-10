@@ -123,27 +123,31 @@ if(Input::exists()) {
 
 		case "registerTeacher":
 		try {
-
 			$user = new User();
 			$salt = Hash::salt(32);
 
+			$email    = trim(stripslashes(Input::get('email')));
+			$password = trim(stripslashes(Input::get('password')));
 			$username = trim(stripslashes(Input::get('username')));
-			$mail     = trim(stripslashes(Input::get('mail')));
 			$idnumber = trim(stripslashes(Input::get('idnumber')));
 
-			if(!isValidIdNumber($idnumber) || $username == "" || $mail == "" ){
+			if (!isValidIdNumber($idnumber) || $username == "" || $email == "" ) {
 				$response = array( "message" => "Datos incorrectos.");
 				die(json_encode($response));
 			}
 
 			$user->create(array(
-				'mail' 	=> $mail,
-				'password' 	=> Hash::make("123", $salt),
+				'mail' 	    => $email,
+				'password' 	=> Hash::make($password, $salt),
 				'salt'		=> $salt,
 				'username'  => $username,
 				'idnumber'  => $idnumber,
 				'role'      =>'teacher'
 				));
+
+
+			$mailer = new Mailer();
+			$mailer->sendActivationMail($email, $password);
 
 		} catch(Exception $e) {
 			$response = array( "message" => "Error:004 ".$e->getMessage());

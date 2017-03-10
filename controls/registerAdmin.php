@@ -7,10 +7,10 @@ echo "aqui <br/>";
 try {
 
 	$user->create(array(
-		'mail' 	=> "lsatitesm@gmail.com",
-		'password' 	=> Hash::make("123", $salt),
+		'mail' 	=> "lsat.development@gmail.com",
+		'password' 	=> Hash::make("itesm2017", $salt),
 		'salt'		=> $salt,
-		'username' 		=> "Admin",
+		'username' 	=> "Admin",
 		'role'      => 'admin'
 		));
 

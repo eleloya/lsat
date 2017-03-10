@@ -31,7 +31,7 @@ $user->checkIsValidUser('admin');
         Nombre:
          <input id="username" type="text">
          Mail:
-         <input id="mail" type="text">
+         <input id="email" type="text">
          Nómina / Matrícula:
          <input id="idnumber" type="text">
          <a href="#" onclick="registerTeacher()" class="button tiny right">Registrar</a>
@@ -52,20 +52,21 @@ $user->checkIsValidUser('admin');
 
   function registerTeacher(){
     var username  = $("#username").val().trim();
-    var mail      = $("#mail").val().trim();
+    var email     = $("#email").val().trim();
     var idnumber  = $("#idnumber").val().trim();
+    var password  = <?php echo json_encode((new RandomPasswordGenerator())->generatePassword()); ?>;
 
-    if(username == "" || mail == "" || idnumber == ""){
+    if (username == "" || email == "" || idnumber == "") {
       alert("No puedes dejar campos vacíos.");
       return;
     }
 
-    $.post( "controls/doAction.php", { action:"registerTeacher", username: username, mail: mail, idnumber: idnumber })
+    $.post("controls/doAction.php", { action:"registerTeacher", email: email, password: password, username: username, idnumber: idnumber})
     .done(function( data ) {
       data = JSON.parse(data);
-      if(data.message == 'success'){
+      if (data.message == 'success') {
         window.location.replace('./manageTeachers.php');
-      }else{
+      } else {
         alert("Error: " + data.message);
       }
 
