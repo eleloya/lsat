@@ -95,13 +95,16 @@ class Mailer {
 		$this->send($to, $subject, $message);
 	}
 
-	/*  */
+	/* Envia mail de activacion */
 	public function sendActivationMail($email, $password) {
 		$subject = "LSAT - Bienvenido";
-		$message = "Bienvenido a LSAT!\n\n\nPara poder accesar tu cuenta usa los siguientes datos:\n\n";
-		$message .= "Usuario: " . $email;
-		$message .= "Contraseña: " . $password;
-
+		
+		$message = file_get_contents('../includes/templates/mails/welcome.html', true);
+		$message = str_replace(
+			array('$email', '$password'), 
+			array($email, $password), 
+			$message
+		);
 		$this->send($email, $subject, $message);
 	}
 }
