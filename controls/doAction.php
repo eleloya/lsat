@@ -142,6 +142,14 @@ if(Input::exists()) {
 				$response = array( "message" => "El correo ya esta siendo usado, favor de checar los datos.");
 				die(json_encode($response));
 			}
+            
+            $idnumber = strtoupper($idnumber);
+
+            
+            if($user->idNumberExists($idnumber)){
+				$response = array( "message" => "La nómina/matrícula ya está siendo utilizada, favor de checar los datos.");
+				die(json_encode($response));
+			}
 
 			$user->create(array(
 				'mail' 	=> $mail,
