@@ -34,13 +34,18 @@ $GLOBALS['config'] = array(
 	'roles' => array('admin', 'teacher', 'student')
 );
 
-//define( 'ABPATH', 'C:/wamp/www/lsat');
-//define( 'ABPATH', '/Applications/XAMPP/xamppfiles/htdocs/LSAT');
-define( 'ABPATH', '/app/');
+$host = $_SERVER['HTTP_HOST'];
+
+if ($host == 'herokuapp.com' or $host == 'lsat.herokuapp.com') {
+	define('ABPATH', '/app/');
+} else  {
+	define('ABPATH', '/Applications/MAMP/htdocs/LSAT');
+}
+
 
 // Autoload classes
 function autoload($class) {
-		require_once (ABPATH.'/classes/' . $class . '.php');
+	require_once (ABPATH.'/classes/' . $class . '.php');
 }
 spl_autoload_register('autoload');
 
