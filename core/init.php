@@ -36,7 +36,7 @@ $GLOBALS['config'] = array(
 
 $host = $_SERVER['HTTP_HOST'];
 
-if (preg_match('/herokuapp/',$host) {
+if (preg_match('/herokuapp/',$host)) {
 	define('ABPATH', '/app/');
 } else  {
 	define('ABPATH', '/Applications/MAMP/htdocs/LSAT');
