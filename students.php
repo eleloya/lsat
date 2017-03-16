@@ -38,7 +38,7 @@ $students = $groups->getAllStudentsFromTeacher($teacherId);
            <tr> 
              <th width="300">Matricula</th> 
              <th width="300">Nombre</th> 
-             <th width="300">Recuperar Contraseña</th> 
+             <th width="300">Grupos</th> 
            </tr> 
          </thead>
 
@@ -49,7 +49,11 @@ $students = $groups->getAllStudentsFromTeacher($teacherId);
               <tr>
                 <td>$student->idNumber</td>
                 <td>$student->username</td>
-                <td><a onclick='recoverPassword($student->id)'   class='tiny button alert'>Recuperar Contraseña</a></td>
+								<td>";
+								foreach($students->groups as $group){
+									echo "<a href='editGroup.php?g=$group->id'>$group->name</a> - ";
+								}
+								echo"</td>
               </tr>
               ";
             }
