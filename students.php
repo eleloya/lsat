@@ -49,7 +49,7 @@ $students = $groups->getAllStudentsFromTeacher($teacherId);
               <tr>
                 <td>$student->idNumber</td>
                 <td>$student->username</td>
-								<td>$studnet->groups</td>
+								<td>$student->groups</td>
               </tr>
               ";
             }
