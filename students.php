@@ -49,11 +49,7 @@ $students = $groups->getAllStudentsFromTeacher($teacherId);
               <tr>
                 <td>$student->idNumber</td>
                 <td>$student->username</td>
-								<td>";
-								foreach($students->groups as $group){
-									echo "<a href='editGroup.php?g=$group->id'>$group->name</a> - ";
-								}
-								echo"</td>
+								<td>$studnet->groups</td>
               </tr>
               ";
             }

@@ -108,7 +108,7 @@ class Groups {
 		
 		$studentIds = $this->getAllStudentsIdsFromTeacher($teacherId);
 		$u = new User();
-		return $u->getStudentsUserData($studentIds);
+		return $u->getStudentsUserDataWithGroups($studentIds, $teacherId);
 	}
 	
 	public function getAllStudentsFromGroup($groupId = null){
