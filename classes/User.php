@@ -53,6 +53,14 @@ class User {
 		}
 		return false;
 	}
+    
+    public function idNumberExists($idNumber){
+		$db = $this->_db->get($this->_userTableName, array('idNumber', '=', $idNumber));
+		if($db->count()) {
+			return true;;
+		}
+		return false;
+	}
 
 	public function create($fields = array()) {
 		if(!$this->_db->insert('user', $fields)) {

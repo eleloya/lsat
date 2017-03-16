@@ -345,8 +345,8 @@ class Competence {
 			$sql = "UPDATE studentrecord SET isBlocked = 1 WHERE studentId = ? AND groupId = ? AND competenceId = ?";
 			if(!$this->_db->query($sql, array($studentId, $groupId, $competenceId))->error()) {
 			    // 2)
-			    $mailer = new Mailer();
-			    $mailer->sendBlockedMails($studentId, $groupId, $competenceId, $level, $webName);
+				$mailer = new Mailer();
+				$mailer->sendBlockedMails($studentId, $groupId, $competenceId, $level, $webName);
 
 				return true;
 			}
