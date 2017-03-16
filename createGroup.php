@@ -51,26 +51,22 @@ $user->checkIsValidUser('teacher');
   <script src="js/vendor/jquery.js"></script>
   <script src="js/foundation.min.js"></script>
 
-  <script>
-    $(document).foundation();
+	<script>
+	$(document).foundation();
+	function createGroup() {
+		var groupname = $("#groupname").val();
+		var students = $("#students").val();
 
-    function createGroup(){
-      var groupname  = $("#groupname").val();
-      var students   = $("#students").val();
-
-      $.post( "controls/doAction.php", { action:"createGroup", groupname: groupname, students: students})
-      .done(function( data ) {
-
-        data = JSON.parse(data);
-        if(data.message == 'success'){
-          window.location.replace('./groups.php');
-        }else{
-          alert("Error: \n\n" + data.message);
-        }
-
-      });
-    }
-
-  </script>
+		$.post("controls/doAction.php", { action:"createGroup", groupname: groupname, students: students})
+		.done(function(data) {
+			data = JSON.parse(data);
+			if (data.message == 'success') {
+				window.location.replace('./groups.php');
+			} else {
+				alert("Error:\n\n" + data.message);
+			}
+		});
+	}
+	</script>
 </body>
 </html>

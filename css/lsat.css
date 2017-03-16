@@ -143,11 +143,6 @@ table td{
   0 20px 20px rgba(0,0,0,.15);
 }
 
-.blured{
-  filter: grayscale(0.6) blur(1px);
-  -webkit-filter: grayscale(0.6) blur(1px);
-}
-
 
 /* Footer */
 .footer {

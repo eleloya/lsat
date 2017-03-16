@@ -1,0 +1,18 @@
+<?php
+class RandomPasswordGenerator {
+	public function generatePassword() {
+		$adjectives = ["adorable", "ancient", "angry", "beautiful", "better", "bewildered", "big", "bitter", "black", "blue", "brave", "breeze", "brief", "broad", "broken", "bumpy", "calm", "careful", "chilly", "chubby", "clean", "clever", "clumsy", "cold", "colossal", "cool", "creepy", "crooked", "cuddly", "curly", "damaged", "deafening", "defeated", "delightful", "dirty", "dry", "dusty", "eager", "early", "easy", "elegant", "embarrassed", "faint", "famous", "fancy", "fast", "fat", "fierce", "filthy", "flaky", "fluffy", "freezing", "fresh", "gifted", "gigantic", "glamorous", "gray", "great", "green", "grumpy", "happy", "helpful", "helpless", "hissing", "huge", "immense", "important", "jealous", "jolly", "kind", "large", "late", "lazy", "little", "lively", "long", "loud", "magnificent", "massive", "melodic", "miniature", "modern", "mysterious", "nervous", "nice", "noisy", "obnoxious", "odd", "old", "orange", "petite", "plain", "powerful", "proud", "puny", "purple", "quick", "quiet", "rainy", "raspy", "red", "relieved", "rich", "rotten", "salty", "scary", "screeching", "shallow", "short", "silly", "skinny", "slow", "small", "sparkling", "square", "steep", "sticky", "straight", "strong", "swift", "tall", "teeny", "thankful", "thundering", "tiny", "uninterested", "uptight", "weak", "white", "wide", "wooden", "worried", "wrong", "yellow", "young"];
+		$animals = ["aardvark", "albatross", "alligator", "alpaca", "angelfish", "ant", "anteater", "antelope", "armadillo", "baboon", "badger", "bandicoot", "barracuda", "basilisk", "bat", "bear", "beaver", "bedbug", "bee", "beetle", "bird", "bison", "blackbird", "boa", "boar", "bobcat", "bonobo", "butterfly", "camel", "capybara", "cardinal", "caribou", "cat", "caterpillar", "catfish", "centipede", "chameleon", "cheetah", "chicken", "chimpanzee", "chipmunk", "clownfish", "cobra", "cockroach", "condor", "coral", "cougar", "coyote", "crab", "crane", "cricket", "crocodile", "crow", "cuckoo", "deer", "dinosaur", "dog", "dolphin", "donkey", "dove", "dragon", "dragonfly", "duck", "eagle", "eel", "elephant", "emu", "falcon", "ferret", "firefly", "fish", "flamingo", "fly", "fox", "frog", "gazelle", "gecko", "gerbil", "giraffe", "goat", "goldfish", "goose", "gorilla", "grasshopper", "hamster", "hare", "harrier", "hawk", "hedgehog", "hippopotamus", "horse", "hoverfly", "hummingbird", "hyena", "iguana", "jackal", "jaguar", "jay", "jellyfish", "kangaroo", "kingfisher", "kiwi", "koala", "krill", "ladybug", "lemur", "leopard", "lion", "lizard", "llama", "lobster", "lynx", "macaw", "magpie", "manatee", "mandrill", "mantis", "marlin", "marmot", "meerkat", "mink", "mockingbird", "mongoose", "monkey", "moose", "mosquito", "mouse", "mule", "narwhal", "needlefish", "newt", "nighthawk", "ocelot", "octopus", "opossum", "orangutan", "orca", "oribi", "ostrich", "otter", "owl", "panda", "panther", "parakeet", "parrot", "pelican", "penguin", "perch", "pigeon", "piranha", "platypus", "pony", "porcupine", "quail", "rabbit", "raccoon", "rattlesnake", "raven", "reindeer", "rhinoceros", "rooster", "salamander", "salmon", "sawfish", "scallop", "scorpion", "seal", "shark", "sheep", "shrew", "shrimp", "sloth", "slug", "snake", "sparrow", "spider", "squid", "squirrel", "starfish", "stingray", "swan", "swift", "swordfish", "tiger", "toad", "tortoise", "toucan", "trout", "tuna", "turtle", "vampire", "viper", "vulture", "walrus", "weasel", "whale", "wildcat", "wolf", "wolverine", "wombat", "woodchuck", "woodpecker", "worm", "yak", "zebra"];
+
+
+		$pass = "";
+
+		$pass .= $adjectives[rand(0, sizeof($adjectives) - 1)];
+		$pass .= "-";
+		$pass .= $animals[rand(0, sizeof($animals) - 1)];
+
+		return $pass;
+	}
+}
+
+?>

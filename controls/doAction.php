@@ -123,27 +123,31 @@ if(Input::exists()) {
 
 		case "registerTeacher":
 		try {
-
 			$user = new User();
 			$salt = Hash::salt(32);
 
+			$email    = trim(stripslashes(Input::get('email')));
+			$password = trim(stripslashes(Input::get('password')));
 			$username = trim(stripslashes(Input::get('username')));
-			$mail     = trim(stripslashes(Input::get('mail')));
 			$idnumber = trim(stripslashes(Input::get('idnumber')));
 
-			if(!isValidIdNumber($idnumber) || $username == "" || $mail == "" ){
+			if (!isValidIdNumber($idnumber) || $username == "" || $email == "" ) {
 				$response = array( "message" => "Datos incorrectos.");
 				die(json_encode($response));
 			}
 
 			$user->create(array(
-				'mail' 	=> $mail,
-				'password' 	=> Hash::make("123", $salt),
+				'mail' 	    => $email,
+				'password' 	=> Hash::make($password, $salt),
 				'salt'		=> $salt,
 				'username'  => $username,
 				'idnumber'  => $idnumber,
 				'role'      =>'teacher'
 				));
+
+
+			$mailer = new Mailer();
+			$mailer->sendActivationMail($email, $password);
 
 		} catch(Exception $e) {
 			$response = array( "message" => "Error:004 ".$e->getMessage());
@@ -159,6 +163,7 @@ if(Input::exists()) {
 			
 			//Necesitamos la Matrícula del profesor, que es el usuario logueado
 			$user = new User();
+			$mailer = new Mailer();
 			$teacherId = $user->data()->id;
 			$groupname = trim(Input::get('groupname'));
 			$students  = trim(Input::get('students'));
@@ -195,28 +200,29 @@ if(Input::exists()) {
 			$groupId = $group->getGroupByName($groupname)->id;
 
 			//Crear cada estudiante
-			foreach ($studentIds as $idnumber){
+			foreach ($studentIds as $idnumber) {
 				/*Debemos de crear una nueva cuenta para cada alumno y asignarle el nuevo grupo
 				pero si el alumno ya existe solo le asignamos el grupo*/
 				$studentId = 0;
 				$student = $user->getByIdNumber($idnumber);
 				if($student == false){
 					$salt = Hash::salt(32);
-					$mail = trim($idnumber) . "@itesm.mx";
+					$email = trim($idnumber) . "@itesm.mx";
 					$username = "Estudiante - " . $idnumber;
-
+					$password = (new RandomPasswordGenerator())->generatePassword();
 					$user->create(array(
-						'mail' 	=> $mail,
-						'password' 	=> Hash::make("123", $salt),
+						'mail'	 	=> $email,
+						'password' 	=> Hash::make($password, $salt),
 						'salt'		=> $salt,
 						'username'  => $username,
 						'idnumber'  => $idnumber,
 						'role'      =>'student'
 						));
 
-					$studentId = $user->getByIdNumber($idnumber)->id;
+					$mailer->sendActivationMail($email, $password);
 
-				}else{
+					$studentId = $user->getByIdNumber($idnumber)->id;
+				} else {
 					$studentId = $student->id;
 				}
 

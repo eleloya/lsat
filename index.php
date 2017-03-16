@@ -18,7 +18,7 @@ if ($user->isLoggedIn()){
 
 <body>
   
-  <div class="backgroundImg blured"></div>
+  <div class="backgroundImg"></div>
   <div class="row centeredXY">
       <div class="text-centered">
         <h1 class="h1-intro">LSAT</h1>
