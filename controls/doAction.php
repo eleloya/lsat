@@ -121,6 +121,8 @@ if(Input::exists()) {
 
 		break;
 
+            
+            
 		case "registerTeacher":
 		try {
 			$user = new User();
@@ -133,6 +135,19 @@ if(Input::exists()) {
 
 			if (!isValidIdNumber($idnumber) || $username == "" || $email == "" ) {
 				$response = array( "message" => "Datos incorrectos.");
+				die(json_encode($response));
+			}
+            
+			if($user->find($mail)){
+				$response = array( "message" => "El correo ya esta siendo usado, favor de checar los datos.");
+				die(json_encode($response));
+			}
+            
+            $idnumber = strtoupper($idnumber);
+
+            
+            if($user->idNumberExists($idnumber)){
+				$response = array( "message" => "La nómina/matrícula ya está siendo utilizada, favor de checar los datos.");
 				die(json_encode($response));
 			}
 
@@ -157,6 +172,9 @@ if(Input::exists()) {
 		echo json_encode($response);
 		break;
 
+            
+            
+            
 		case "createGroup":
 
 		try {
