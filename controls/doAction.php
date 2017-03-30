@@ -138,7 +138,7 @@ if(Input::exists()) {
 				die(json_encode($response));
 			}
             
-			if($user->find($mail)){
+			if($user->mailExists($email)){
 				$response = array( "message" => "El correo ya esta siendo usado, favor de checar los datos.");
 				die(json_encode($response));
 			}
