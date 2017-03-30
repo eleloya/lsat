@@ -42,7 +42,7 @@ $user->checkIsValidUser();
        <h3>Ver y editar mi información</h3>
        <hr/>
 
-       <h5>Username</h5>
+       <h5>Nombre</h5>
        <input id="username" type="text" value="<?php echo $user->data()->username; ?>"> <br/>
        <h5>Mail</h5>
        <input id="mail" type="text" value="<?php echo $user->data()->mail;  ?>">

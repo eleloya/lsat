@@ -21,20 +21,19 @@ $user->checkIsValidUser('admin');
   <section class="scroll-container" role="main">
 
     <div class="row">
-      <?php include 'includes/templates/adminSidebar.php' ?>  
+      <?php include 'includes/templates/adminSidebar.php' ?>
       <div class="large-9 medium-8 columns">
         <br/>
         <h3>Registrar nuevo maestro</h3>
-        <h4 class="subheader"> Ten cuidado de no registrar profesores duplicados.</h4>
-        <hr>  
+        <hr>
         <div id="">
-        Nombre:
-         <input id="username" type="text">
-         Mail:
-         <input id="email" type="text">
-         Nómina / Matrícula:
-         <input id="idnumber" type="text">
-         <a href="#" onclick="registerTeacher()" class="button tiny right">Registrar</a>
+	        <h5>Nombre:</h5>
+			<input id="username" type="text">
+			<h5>Mail:</h5>
+			<input id="email" type="text">
+			<h5>Nómina / Matrícula:</h5>
+			<input id="idnumber" type="text">
+			<a href="#" onclick="registerTeacher()" class="button tiny right">Registrar</a>
        </div>
 
      </div>
