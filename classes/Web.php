@@ -42,7 +42,16 @@ class Web {
 		}
 
 		return null;
+	}
 
+	public function getAllWebs() {
+		$db = $this->_db->get($this->_tableName);
+
+		if ($db && $db->count()) {
+			return $db->results();
+		}
+
+		return array();
 	}
 
 	public function getWebsForTeacher($teacherId = null) {

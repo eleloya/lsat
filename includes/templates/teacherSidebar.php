@@ -18,6 +18,7 @@
         <li class="divider"></li>
 
         <li class="heading">Redes</li>
+        <li><a href="allWebs.php">Todas las redes</a></li>
         <li><a href="webs.php">Mis redes</a></li>
         <li><a href="newWeb.php">Crear nueva red</a></li>
 

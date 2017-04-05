@@ -36,7 +36,7 @@ $teacherWebs = $web->getWebsForTeacher($teacherId);
              <th width="300">Nombre de la red</th>
              <th width="200">Fecha de creacion</th>
              <th width="300">Editar</th>
-             <th width="300">Detalle <small> Ver las preguntas que componen la red </small> </th>
+             <th width="300">Detalle <small>Ver las preguntas que componen la red</small></th>
            </tr>
          </thead>
 
