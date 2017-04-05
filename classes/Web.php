@@ -130,19 +130,17 @@ class Web {
 
 	}
 
-	public function getWebIfValidAndEditable($webId = null) {
-		if ($webId == null) return;
+	public function getValidWeb($webId = null) {
+		if ($webId == null) {
+			return;
+		}
 
 		$web = $this->getWeb($webId);
-
-		//La red no existe
-		if ($web == null) return false;
-
-		//La red ya esta publicada
-		if ($web->isPublished) return false;
+		if ($web == null) {
+			return false;
+		}
 
 		return $web;
-
 	}
 
 	public function create($fields = array()) {
