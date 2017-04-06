@@ -10,38 +10,39 @@ $teacherWebs = $web->getWebsForTeacher($teacherId);
 
 ?>
 
-<!doctype html>
-<html class="no-js" lang="en">
-<head>
-  <title>LSAT | Webs</title>
-  <?php include 'includes/templates/headTags.php' ?>
-</head>
+    <!doctype html>
+    <html class="no-js" lang="en">
 
-<body>
+    <head>
+        <title>LSAT | Webs</title>
+        <?php include 'includes/templates/headTags.php' ?>
+    </head>
 
-  <?php include 'includes/templates/header.php' ?>
+    <body>
 
-  <section class="scroll-container" role="main">
+        <?php include 'includes/templates/header.php' ?>
 
-    <div class="row">
-    <?php include 'includes/templates/teacherSidebar.php' ?>
-      <div class="large-9 medium-8 columns">
-        <h3>Redes</h3>
-        <h4 class="subheader">Mis redes de aprendizaje</h4>
-        <hr>
+        <section class="scroll-container" role="main">
 
-        <table>
-         <thead>
-           <tr>
-             <th width="300">Nombre de la red</th>
-             <th width="200">Fecha de creacion</th>
-             <th width="300">Editar</th>
-             <th width="300">Detalle <small> Ver las preguntas que componen la red </small> </th>
-           </tr>
-         </thead>
+            <div class="row">
+                <?php include 'includes/templates/teacherSidebar.php' ?>
+                <div class="large-9 medium-8 columns">
+                    <h3>Redes</h3>
+                    <h4 class="subheader">Mis redes de aprendizaje</h4>
+                    <hr>
 
-         <tbody>
-           <?php
+                    <table>
+                        <thead>
+                            <tr>
+                                <th width="300">Nombre de la red</th>
+                                <th width="200">Fecha de creacion</th>
+                                <th width="300">Editar</th>
+                                <th width="300">Detalle <small> Ver las preguntas que componen la red </small> </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <?php
            foreach ($teacherWebs as $web) {
 
               echo "<tr id='$web->id'>
@@ -58,22 +59,23 @@ $teacherWebs = $web->getWebsForTeacher($teacherId);
 
          ?>
 
-       </tbody>
-     </table>
+                        </tbody>
+                    </table>
 
-     </div>
-   </div>
- </section>
-
-
-<?php include 'includes/templates/footer.php' ?>
+                </div>
+            </div>
+        </section>
 
 
-<script src="js/vendor/jquery.js"></script>
-<script src="js/foundation.min.js"></script>
-<script>
-  $(document).foundation();
+        <?php include 'includes/templates/footer.php' ?>
 
-</script>
-</body>
-</html>
+
+        <script src="js/vendor/jquery.js"></script>
+        <script src="js/foundation.min.js"></script>
+        <script>
+            $(document).foundation();
+
+        </script>
+    </body>
+
+    </html>
