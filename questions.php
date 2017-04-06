@@ -48,9 +48,19 @@ $info = $question->getAllQuestions($topic, $difficulty);
            foreach ($info as $question) {
 
               echo "<tr id='$question->id'>
-                    <td> $question->topic </td>
-                    <td> $question->professor </td>
-                    <td> $question->text </td>
+                    <td> $question->topic </td>";
+                    $db = DB::getInstance();
+				    $sql = "SELECT U.username FROM web W JOIN user U WHERE U.id = $question->professor LIMIT 1";
+					if (!$db->query($sql)->error()) {
+							if ($db->count()) {
+								echo "<td>".$db->results()[0]->username."</td>";
+							} else {
+								echo "<td></td>";
+							}
+						} else {
+							echo "<td></td>";
+						}            
+                    echo " <td> $question->text </td>
                     <td> $question->difficulty </td>";
                     echo "<td> <a href=\"webDetail.php?web=$web->id\" class='tiny button primary'>Editar/pendiente</a>
                     <a href=\"webDetail.php?web=$web->id\" class='tiny button alert'>Eliminar/pendiente</a></td></tr>";
