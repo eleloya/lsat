@@ -13,7 +13,7 @@ $webId = trim(Input::get("web"));
 
 if ($webId != ''){
   $w = new Web();
-  $web = $w->getWebIfValidAndEditable($webId);
+  $web = $w->getValidWeb($webId, $teacherId);
 
   if ($web == false) {
     Redirect::to('webs.php');

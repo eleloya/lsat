@@ -56,7 +56,7 @@ $answers = $answer->getAnswersForQuestionList($questions);
           <?php
 
             if(is_array($levels) && count($levels) == 0){
-              echo " <p>Esta red aun no tiene preguntas. <a href='newWeb.php?web=$webId'>Continuar editando</a></p> ";
+              echo "<p>Esta red aun no tiene preguntas.</p>";
             }else{
 
             foreach($levels as $level) {
