@@ -130,13 +130,17 @@ class Web {
 
 	}
 
-	public function getValidWeb($webId = null) {
-		if ($webId == null) {
+	public function getValidWeb($webId = null, $teacherId = null) {
+		if ($webId == null || $teacherId == null) {
 			return;
 		}
 
 		$web = $this->getWeb($webId);
 		if ($web == null) {
+			return false;
+		}
+		
+		if ($teacherId != $web->professor) {
 			return false;
 		}
 

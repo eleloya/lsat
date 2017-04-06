@@ -43,8 +43,8 @@ $allWebs = $web->getAllWebs();
 					$db = DB::getInstance();
 					foreach ($allWebs as $web) {
 						echo "<tr id='$web->id'>";
-						echo "<td> $web->name </td>";
-						echo "<td> $web->createdDate </td>";
+						echo "<td>$web->name</td>";
+						echo "<td>$web->createdDate</td>";
 						
 						$sql = "SELECT U.username FROM web W JOIN user U WHERE U.id = $web->professor LIMIT 1";
 						if (!$db->query($sql)->error()) {
@@ -60,8 +60,14 @@ $allWebs = $web->getAllWebs();
 						echo "<td>";
 						if ($web->isPublished) {
 							echo "<br>Red publicada<br><br>";
+						} elseif ($teacherId == $web->professor) {
+							echo "<br>Red no publicada<br><br>";
 						}
-						echo "<a href=\"newWeb.php?web=$web->id\" class='tiny button secondary'>Editar</a></td>";
+						if ($teacherId == $web->professor) {
+							echo "<a href=\"newWeb.php?web=$web->id\" class='tiny button secondary'>Editar</a>";
+							echo "<a href=\"#\" class='tiny button alert'>Borrar</a>";
+						}
+						echo "</td>";
 							
 						echo "<td> <a href=\"webDetail.php?web=$web->id\" class='tiny button secondary'>Ver detalle</a> </td></tr>";
 					}
