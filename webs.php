@@ -41,26 +41,23 @@ $teacherWebs = $web->getWebsForTeacher($teacherId);
          </thead>
 
          <tbody>
-           <?php
-           foreach ($teacherWebs as $web) {
+			<?php
+			foreach ($teacherWebs as $web) {
+				echo "<tr id='$web->id'>";
+				echo "<td>$web->name</td>";
+				echo "<td>$web->createdDate</td>";
 
-              echo "<tr id='$web->id'>
-                    <td>$web->name</td>
-                    <td>$web->createdDate</td>";
+				echo "<td>";
+				if ($web->isPublished){
+					echo "<br>Red publicada<br><br>";
+				}
+				echo "<a href=\"newWeb.php?web=$web->id\" class='tiny button secondary'>Editar</a><br>";
+				echo "<a onclick='deleteWeb($web->id)' class='tiny button alert'>Borrar</a>";
+				echo "</td>";
 
-                    echo "<td>";
-                    if ($web->isPublished){
-                      echo "<br>Red publicada<br><br>";
-                    }
-                    echo "<a href=\"newWeb.php?web=$web->id\" class='tiny button secondary'>Editar</a><br>";
-                    echo "<a href=\"#\" class='tiny button alert'>Borrar</a>";
-                    echo "</td>";
-
-                    echo "<td><a href=\"webDetail.php?web=$web->id\" class='tiny button secondary'>Ver detalle</a></td></tr>";
-            }
-
-         ?>
-
+				echo "<td><a href=\"webDetail.php?web=$web->id\" class='tiny button secondary'>Ver detalle</a></td></tr>";
+			}
+			?>
        </tbody>
      </table>
 
@@ -75,8 +72,14 @@ $teacherWebs = $web->getWebsForTeacher($teacherId);
 <script src="js/vendor/jquery.js"></script>
 <script src="js/foundation.min.js"></script>
 <script>
-  $(document).foundation();
+	$(document).foundation();
 
+	function deleteWeb(id) {
+		var r = confirm("Estas seguro que deseas eliminar esta red?");
+		if (r == true) {
+			window.location.replace('./deleteWeb.php?id='+id);
+		}
+	}
 </script>
 </body>
 </html>

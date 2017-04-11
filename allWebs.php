@@ -65,7 +65,7 @@ $allWebs = $web->getAllWebs();
 						}
 						if ($teacherId == $web->professor) {
 							echo "<a href=\"newWeb.php?web=$web->id\" class='tiny button secondary'>Editar</a>";
-							echo "<a href=\"#\" class='tiny button alert'>Borrar</a>";
+							echo "<a onclick='deleteWeb($web->id)' class='tiny button alert'>Borrar</a>";
 						}
 						echo "</td>";
 							
@@ -86,8 +86,14 @@ $allWebs = $web->getAllWebs();
 <script src="js/vendor/jquery.js"></script>
 <script src="js/foundation.min.js"></script>
 <script>
-  $(document).foundation();
+	$(document).foundation();
 
+	function deleteWeb(id) {
+		var r = confirm("Estas seguro que deseas eliminar esta red?");
+		if (r == true) {
+			window.location.replace('./deleteWeb.php?id='+id);
+		}
+	}
 </script>
 </body>
 </html>
