@@ -176,14 +176,17 @@ class Web {
 		return false;
 	}
 
-	public function deleteAllQuestionsInWeb($webId){
-
-		if(!$this->_db->delete("questionsinweb", array("webId" , "=" , $webId))) {
+	public function deleteAllQuestionsInWeb($webId) {
+		if (!$this->_db->delete("questionsinweb", array("webId" , "=" , $webId))) {
 			throw new Exception('There was a problem deleting all questions from the web.');
 		}
-
 	}
 
+	public function delete($webId) {
+		if (!$this->_db->delete("web", array("id" , "=" , $webId))) {
+			throw new Exception('There was a problem deleting the web.');
+		}
+	}
 
 	public function getWebsInCompetenceId($webId = null, $competenceId = null) {
 		if ($webId == null || $competenceId == null) return;
