@@ -35,11 +35,11 @@ $teacherId = $user->data()->id;
 
             <h5>A continuacion, escribe los ids de las redes que formaran la competencia.</h5>
 			<ol>
-			<li> <input id="web1" type="text"/> </li>
-			<li> <input id="web2" type="text"/> </li>
-			<li> <input id="web3" type="text"/> </li>
-			<li> <input id="web4" type="text"/> </li>
-			<li> <input id="web5" type="text"/> </li>
+			<li><input style="display: inline;" id="web1" type="text"/></li>
+			<li><input style="display: inline;" id="web2" type="text"/></li>
+			<li><input style="display: inline;" id="web3" type="text"/></li>
+			<li><input style="display: inline;" id="web4" type="text"/></li>
+			<li><input style="display: inline;" id="web5" type="text"/></li>
 			</ol>
           </div>
 
