@@ -55,6 +55,16 @@ class Competence {
 
 	}
 
+	public function getAllCompetences() {
+		$db = $this->_db->get($this->_tableName);
+
+		if ($db && $db->count()) {
+			return $db->results();
+		}
+
+		return array();
+	}
+
 	public function getCompetencesForTeacher($teacherId = null){
 		if ($teacherId == null) return;
 
@@ -458,4 +468,26 @@ class Competence {
 
 	}
 
+	public function getValidCompetence($competenceId = null, $teacherId = null) {
+		if ($competenceId == null || $teacherId == null) {
+			return;
+		}
+
+		$competence = $this->getCompetence($competenceId);
+		if ($competence == null) {
+			return false;
+		}
+		
+		if ($teacherId != $competence->professor) {
+			return false;
+		}
+
+		return $competence;
+	}
+
+	public function delete($competenceId) {
+		if (!$this->_db->delete("competence", array("id" , "=" , $competenceId))) {
+			throw new Exception('There was a problem deleting the competence.');
+		}
+	}
 }
