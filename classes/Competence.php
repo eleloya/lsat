@@ -486,6 +486,10 @@ class Competence {
 	}
 
 	public function delete($competenceId) {
+		if (!$this->_db->delete("websincompetence", array("competenceId" , "=" , $competenceId))) {
+			throw new Exception('There was a problem deleting the competence.');
+		}
+
 		if (!$this->_db->delete("competence", array("id" , "=" , $competenceId))) {
 			throw new Exception('There was a problem deleting the competence.');
 		}
