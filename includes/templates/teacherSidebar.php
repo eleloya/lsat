@@ -27,6 +27,7 @@
 
                 <li class="heading">Competencias</li>
                 <li><a href="webExplorer.php">Explorador de redes</a></li>
+                <li><a href="allCompetences.php">Competencias</a></li>
                 <li><a href="competences.php">Mis competencias</a></li>
                 <li><a href="newCompetence.php">Crear nueva competencia</a></li>
 

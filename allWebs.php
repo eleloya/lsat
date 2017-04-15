@@ -46,7 +46,7 @@ $allWebs = $web->getAllWebs();
 						echo "<td>$web->name</td>";
 						echo "<td>$web->createdDate</td>";
 						
-						$sql = "SELECT U.username FROM web W JOIN user U WHERE U.id = $web->professor LIMIT 1";
+						$sql = "SELECT U.username FROM web JOIN user U WHERE U.id = $web->professor LIMIT 1";
 						if (!$db->query($sql)->error()) {
 							if ($db->count()) {
 								echo "<td>".$db->results()[0]->username."</td>";
@@ -57,11 +57,11 @@ $allWebs = $web->getAllWebs();
 							echo "<td></td>";
 						}
 
-						echo "<td>";
+						echo "<td><br>";
 						if ($web->isPublished) {
-							echo "<br>Red publicada<br><br>";
+							echo "Red publicada<br><br>";
 						} elseif ($teacherId == $web->professor) {
-							echo "<br>Red no publicada<br><br>";
+							echo "Red no publicada<br><br>";
 						}
 						if ($teacherId == $web->professor) {
 							echo "<a href=\"newWeb.php?web=$web->id\" class='tiny button secondary'>Editar</a>";
