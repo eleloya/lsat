@@ -71,11 +71,8 @@ $students = $user->getUsersByRole('student');
   $(document).foundation();
 
   function deleteStudent(id){
-    var r = confirm("Estas seguro que deseas eliminar este usuario?");
-    if (r == true) {
-      window.location.replace('./deleteStudent.php?uId='+id);
-    }
-  }
+     alert("Solo los maestros pueden remover a sus alumnos");
+	 }
 
 </script>
 </body>
