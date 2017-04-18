@@ -292,15 +292,10 @@ if(Input::exists()) {
 			// Crear el nuevo grupo
 			$group = new Groups();
 			if(!$group->getGroupByName($groupname)){
-				$response = array( "message" => "El grupo no existe");
+				$response = array( "message" => "El grupo seleccionado no existe");
 				echo json_encode($response);
 				return;
 			}
-
-			$group->create(array(
-				'professor' => intval($teacherId),
-				'name'  => $groupname
-				));
 
 			// Obtener el id que se le asigno en la BD
 			$groupId = $group->getGroupByName($groupname)->id;
