@@ -222,24 +222,24 @@ if(Input::exists()) {
 				/*Debemos de crear una nueva cuenta para cada alumno y asignarle el nuevo grupo
 				pero si el alumno ya existe solo le asignamos el grupo*/
 				$studentId = 0;
-				$student = $user->getByIdNumber($idnumber);
+				$student = $user->getByIdNumber(trim($idnumber));
 				if($student == false){
 					$salt = Hash::salt(32);
 					$email = trim($idnumber) . "@itesm.mx";
-					$username = "Estudiante - " . $idnumber;
+					$username = "Estudiante - " . trim($idnumber);
 					$password = (new RandomPasswordGenerator())->generatePassword();
 					$user->create(array(
 						'mail'	 	=> $email,
 						'password' 	=> Hash::make($password, $salt),
 						'salt'		=> $salt,
 						'username'  => $username,
-						'idnumber'  => $idnumber,
+						'idnumber'  => trim($idnumber),
 						'role'      =>'student'
 						));
 
 					$mailer->sendActivationMail($email, $password);
 
-					$studentId = $user->getByIdNumber($idnumber)->id;
+					$studentId = $user->getByIdNumber(trim($idnumber))->id;
 				} else {
 					$studentId = $student->id;
 				}
@@ -310,24 +310,24 @@ if(Input::exists()) {
 				/*Debemos de crear una nueva cuenta para cada alumno y asignarle el nuevo grupo
 				pero si el alumno ya existe solo le asignamos el grupo*/
 				$studentId = 0;
-				$student = $user->getByIdNumber($idnumber);
+				$student = $user->getByIdNumber(trim($idnumber));
 				if($student == false){
 					$salt = Hash::salt(32);
 					$email = trim($idnumber) . "@itesm.mx";
-					$username = "Estudiante - " . $idnumber;
+					$username = "Estudiante - " . trim($idnumber);
 					$password = (new RandomPasswordGenerator())->generatePassword();
 					$user->create(array(
 						'mail'	 	=> $email,
 						'password' 	=> Hash::make($password, $salt),
 						'salt'		=> $salt,
 						'username'  => $username,
-						'idnumber'  => $idnumber,
+						'idnumber'  => trim($idnumber),
 						'role'      =>'student'
 						));
 
 					$mailer->sendActivationMail($email, $password);
 
-					$studentId = $user->getByIdNumber($idnumber)->id;
+					$studentId = $user->getByIdNumber(trim($idnumber))->id;
 				} else {
 					$studentId = $student->id;
 				}
