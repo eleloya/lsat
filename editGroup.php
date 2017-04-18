@@ -118,7 +118,7 @@ $students = $g->getAllStudentsFromGroup($groupId);
 			.done(function(data) {
 				data = JSON.parse(data);
 				if (data.message == 'success') {
-					window.location.replace('./students.php');
+					window.location.replace('./editGroup.php?g=<?php echo $groupId; ?>');
 				} else {
 					alert("Error:\n\n" + data.message);
 				}
