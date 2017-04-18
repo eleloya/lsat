@@ -30,7 +30,7 @@ $teachers = $user->getUsersByRole('teacher');
         <table>
          <thead>
            <tr>
-             <th width="300">Username</th>
+             <th width="300">Nombre</th>
              <th width="200">Mail</th>
              <th width="200">Nomina</th>
              <th width="200">Fecha de registro</th>

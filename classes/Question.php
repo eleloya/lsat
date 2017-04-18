@@ -31,6 +31,18 @@ class Question {
 		return array();
 	}
 
+    
+    	public function getAllQuestions($topic, $difficulty){
+
+		$sql = "SELECT * FROM question WHERE topic =  ? AND difficulty = ?";
+		if(!$this->_db->query($sql, array($topic, $difficulty))->error()) {
+			if($this->_db->count()) {
+				return $this->_db->results();
+			}
+		}
+		return array();
+	}
+    
 	public function getQuestion($id){
 
 		$sql = "SELECT * FROM question WHERE id = ?";

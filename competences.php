@@ -34,39 +34,34 @@ $teacherCompetences = $competence->getCompetencesForTeacher($teacherId);
         <table>
          <thead>
            <tr>
-             <th width="300">Nombre</th>
-             <th width="300">Editar</th>
+             <th width="80%">Nombre</th>
+             <th width="20%">Editar</th>
            </tr>
          </thead>
 
          <tbody>
-           <?php
+			<?php
+			if ($teacherCompetences != null) {
+				foreach ($teacherCompetences as $competence) {
+					echo "<tr id='$competence->id'>";
+					echo "<td>$competence->name</td>";
 
-           if($teacherCompetences != null){
+					echo "<td><br>";
+					if ($competence->isPublished) {
+						echo "Competencia publicada<br><br>";
+					}
+					if ($teacherId == $competence->professor) {
+						echo "<a href=\"competenceDetail.php?competence=$competence->id\" class='tiny button secondary'>Editar</a>";
+						echo "<br><a onclick='deleteCompetence($competence->id)' class='tiny button alert'>Borrar</a>";
+					}
+					echo "</td>";
 
-            foreach ($teacherCompetences as $competence) {
-
-              echo "<tr id='$competence->id'>
-              <td> $competence->name </td>";
-
-
-              if($competence->isPublished){
-                echo "<td> Competencia publicada </td>";
-              }else{
-                echo "<td> <a href=\"competenceDetail.php?competence=$competence->id\" class='tiny button secondary'>Editar</a> </td>";
-              }
-
-              echo  "</tr>";
-          }
-        }else{
-          echo "<tr> <td> No hay competencias </td> </tr>";
-        }
-
-
-
-
-        ?>
-
+					echo  "</tr>";
+				}
+			} else {
+				echo "<tr> <td> No hay competencias </td> </tr>";
+			}
+			?>
       </tbody>
     </table>
 
@@ -74,15 +69,19 @@ $teacherCompetences = $competence->getCompetencesForTeacher($teacherId);
 </div>
 </section>
 
+	<?php include 'includes/templates/footer.php' ?>
 
-<?php include 'includes/templates/footer.php' ?>
+	<script src="js/vendor/jquery.js"></script>
+	<script src="js/foundation.min.js"></script>
+	<script>
+		$(document).foundation();
 
-
-<script src="js/vendor/jquery.js"></script>
-<script src="js/foundation.min.js"></script>
-<script>
-  $(document).foundation();
-
-</script>
+		function deleteCompetence(id) {
+			var r = confirm("Estas seguro que deseas eliminar esta competencia?");
+			if (r == true) {
+				window.location.replace('./deleteCompetence.php?id='+id);
+			}
+		}
+	</script>
 </body>
 </html>

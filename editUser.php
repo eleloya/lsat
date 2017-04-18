@@ -26,7 +26,7 @@ $userToEdit = $userToEdit->data();
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LSAT | Editar usuario </title>
+  <title>LSAT | Editar usuario</title>
   <link rel="stylesheet" href="css/foundation.css" />
   <link rel="stylesheet" href="css/lsat.css" />
   <script src="js/vendor/modernizr.js"></script>
@@ -53,10 +53,10 @@ $userToEdit = $userToEdit->data();
 
       <div class="large-9 medium-8 columns">
        <br/>
-       <h3>Editar información de un usuario</h3>
+       <h3>Editar usuario</h3>
        <hr/>
 
-       <h5>Username</h5>
+       <h5>Nombre</h5>
        <input id="username" type="text" value="<?php echo $userToEdit->username; ?>"> <br/>
        <h5>Matricula</h5>
        <input id="idNumber" type="text" value="<?php echo $userToEdit->idNumber;  ?>">

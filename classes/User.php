@@ -61,6 +61,14 @@ class User {
 		}
 		return false;
 	}
+    
+        public function mailExists($mail){
+		$db = $this->_db->get($this->_userTableName, array('mail', '=', $mail));
+		if($db->count()) {
+			return true;;
+		}
+		return false;
+	}
 
 	public function create($fields = array()) {
 		if(!$this->_db->insert('user', $fields)) {

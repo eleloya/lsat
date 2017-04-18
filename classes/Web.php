@@ -42,7 +42,16 @@ class Web {
 		}
 
 		return null;
+	}
 
+	public function getAllWebs() {
+		$db = $this->_db->get($this->_tableName);
+
+		if ($db && $db->count()) {
+			return $db->results();
+		}
+
+		return array();
 	}
 
 	public function getWebsForTeacher($teacherId = null) {
@@ -121,19 +130,21 @@ class Web {
 
 	}
 
-	public function getWebIfValidAndEditable($webId = null) {
-		if ($webId == null) return;
+	public function getValidWeb($webId = null, $teacherId = null) {
+		if ($webId == null || $teacherId == null) {
+			return;
+		}
 
 		$web = $this->getWeb($webId);
-
-		//La red no existe
-		if ($web == null) return false;
-
-		//La red ya esta publicada
-		if ($web->isPublished) return false;
+		if ($web == null) {
+			return false;
+		}
+		
+		if ($teacherId != $web->professor) {
+			return false;
+		}
 
 		return $web;
-
 	}
 
 	public function create($fields = array()) {
@@ -165,14 +176,17 @@ class Web {
 		return false;
 	}
 
-	public function deleteAllQuestionsInWeb($webId){
-
-		if(!$this->_db->delete("questionsinweb", array("webId" , "=" , $webId))) {
+	public function deleteAllQuestionsInWeb($webId) {
+		if (!$this->_db->delete("questionsinweb", array("webId" , "=" , $webId))) {
 			throw new Exception('There was a problem deleting all questions from the web.');
 		}
-
 	}
 
+	public function delete($webId) {
+		if (!$this->_db->delete("web", array("id" , "=" , $webId))) {
+			throw new Exception('There was a problem deleting the web.');
+		}
+	}
 
 	public function getWebsInCompetenceId($webId = null, $competenceId = null) {
 		if ($webId == null || $competenceId == null) return;
