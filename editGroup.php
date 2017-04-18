@@ -63,6 +63,12 @@ $students = $g->getAllStudentsFromGroup($groupId);
             ?>
           </tbody>
         </table>
+        <hr>
+        <h5>Agregar más alumnos</h5>
+        <input id="students" type="text" placeholder="Matrículas de alumnos separadas por comas... A012345, A02389"/>
+        <a onclick="createGroup()" class="button tiny right">Agregar alumnos</a>
+        <br/>
+        <hr>
       </div>
     </div>
   </section>
@@ -103,6 +109,21 @@ $students = $g->getAllStudentsFromGroup($groupId);
         window.location.replace('./deleteStudent.php?sId='+id+'&gId='+gId);
       }
     }
+		
+		function createGroup() {
+			var groupname = $("#name").val();
+			var students = $("#students").val();
+
+			$.post("controls/doAction.php", { action:"addStudentsToGroup", groupname: groupname, students: students})
+			.done(function(data) {
+				data = JSON.parse(data);
+				if (data.message == 'success') {
+					window.location.replace('./editGroup.php?g=<?php echo $groupId; ?>');
+				} else {
+					alert("Error:\n\n" + data.message);
+				}
+			});
+		}
 
   </script>
 </body>

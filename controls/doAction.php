@@ -222,24 +222,24 @@ if(Input::exists()) {
 				/*Debemos de crear una nueva cuenta para cada alumno y asignarle el nuevo grupo
 				pero si el alumno ya existe solo le asignamos el grupo*/
 				$studentId = 0;
-				$student = $user->getByIdNumber($idnumber);
+				$student = $user->getByIdNumber(trim($idnumber));
 				if($student == false){
 					$salt = Hash::salt(32);
 					$email = trim($idnumber) . "@itesm.mx";
-					$username = "Estudiante - " . $idnumber;
+					$username = "Estudiante - " . trim($idnumber);
 					$password = (new RandomPasswordGenerator())->generatePassword();
 					$user->create(array(
 						'mail'	 	=> $email,
 						'password' 	=> Hash::make($password, $salt),
 						'salt'		=> $salt,
 						'username'  => $username,
-						'idnumber'  => $idnumber,
+						'idnumber'  => trim($idnumber),
 						'role'      =>'student'
 						));
 
 					$mailer->sendActivationMail($email, $password);
 
-					$studentId = $user->getByIdNumber($idnumber)->id;
+					$studentId = $user->getByIdNumber(trim($idnumber))->id;
 				} else {
 					$studentId = $student->id;
 				}
@@ -263,6 +263,88 @@ if(Input::exists()) {
 		echo json_encode($response);
 		break;
 
+		case "addStudentsToGroup":
+
+		try {
+			
+			//Necesitamos la Matrícula del profesor, que es el usuario logueado
+			$user = new User();
+			$mailer = new Mailer();
+			$teacherId = $user->data()->id;
+			$groupname = trim(Input::get('groupname'));
+			$students  = trim(Input::get('students'));
+			
+			if ( empty($groupname) || empty($students)) {
+				$response = array( "message" => "No se puede agregar alumnos sin grupo");
+				die(json_encode($response));
+			}
+			
+			$studentIds = explode(',', $students);
+			foreach ($studentIds as $idnumber){
+				if(!isValidIdNumber($idnumber)){
+					$response = array( "message" => "Matriculas incorrectas");
+					die(json_encode($response));
+				}
+			}
+
+			$db = DB::getInstance();
+
+			// Crear el nuevo grupo
+			$group = new Groups();
+			if(!$group->getGroupByName($groupname)){
+				$response = array( "message" => "El grupo seleccionado no existe");
+				echo json_encode($response);
+				return;
+			}
+
+			// Obtener el id que se le asigno en la BD
+			$groupId = $group->getGroupByName($groupname)->id;
+
+			//Crear cada estudiante
+			foreach ($studentIds as $idnumber) {
+				/*Debemos de crear una nueva cuenta para cada alumno y asignarle el nuevo grupo
+				pero si el alumno ya existe solo le asignamos el grupo*/
+				$studentId = 0;
+				$student = $user->getByIdNumber(trim($idnumber));
+				if($student == false){
+					$salt = Hash::salt(32);
+					$email = trim($idnumber) . "@itesm.mx";
+					$username = "Estudiante - " . trim($idnumber);
+					$password = (new RandomPasswordGenerator())->generatePassword();
+					$user->create(array(
+						'mail'	 	=> $email,
+						'password' 	=> Hash::make($password, $salt),
+						'salt'		=> $salt,
+						'username'  => $username,
+						'idnumber'  => trim($idnumber),
+						'role'      =>'student'
+						));
+
+					$mailer->sendActivationMail($email, $password);
+
+					$studentId = $user->getByIdNumber(trim($idnumber))->id;
+				} else {
+					$studentId = $student->id;
+				}
+
+				//studentsingroup - groupId studentId
+				$fields = array(
+					'groupId' 	=> intval($groupId),
+					'studentId' => intval($studentId),
+					'active' => 1);
+				if(!$db->insert('studentsingroup', $fields)) {
+					throw new Exception('There was a problem assigning the student to the group.');
+				}
+
+			}
+
+		} catch(Exception $e) {
+			$response = array( "message" => "Error:005 ".$e->getMessage());
+			die(json_encode($response));
+		}
+		$response = array( "message" => "success");
+		echo json_encode($response);
+		break;
 
 		case "createQuestion":
 

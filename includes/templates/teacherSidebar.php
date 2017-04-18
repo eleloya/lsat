@@ -10,12 +10,19 @@
                 <li><a href="createGroup.php">Crear nuevo grupo</a></li>
                 <li><a href="assignCompetences.php">Asignar competencias</a></li>
                 <li><a href="unlockStudent.php">Desbloquear alumno</a></li>
+								
+				        <li class="divider"></li>
 
-        <li class="divider"></li>
+				        <li class="heading">Alumnos</li>
+				        <li><a href="students.php">Mis alumnos</a></li>
+				        <li><a href="createStudent.php">Agregar alumnos</a></li>
+								
 
-        <li class="heading">Preguntas</li>
-        <li><a href="questions.php" title="">Ver preguntas existentes</a></li>
-        <li><a href="createQuestion.php" title="">Crear nueva pregunta</a></li>
+				        <li class="divider"></li>
+
+				        <li class="heading">Preguntas</li>
+				        <li><a href="questions.php" title="">Ver preguntas existentes</a></li>
+				        <li><a href="createQuestion.php" title="">Crear nueva pregunta</a></li>
 
 
                 <li class="divider"></li>
