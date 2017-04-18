@@ -4,7 +4,9 @@ require 'core/init.php';
 
 $user = new User();
 $user->checkIsValidUser('teacher');
-
+$teacherId = $user->data()->id;
+$groups = new Groups();
+$teacherGroups = $groups->getGroupsForTeacher($teacherId);
 ?>
 
 <!doctype html>
@@ -30,7 +32,14 @@ $user->checkIsValidUser('teacher');
         <form> 
           <div class="row"> 
             <div class="large-4 columns"> 
-            <label>Nombre del grupo <input id="groupname" type="text" placeholder="TC-0001" /> </label> 
+            <label>Nombre del grupo 
+						<select id="groupname">
+		           <?php
+		           foreach ($teacherGroups as $group) {
+								 echo "<option value='$group->name'>$group->name</option>";
+		        	 }
+		        ?>
+						</label> 
             </div>
           </div>
           <div class="row"> 
