@@ -262,15 +262,15 @@ class User {
 	}
 	
 	public function getStudentsUserDataWithGroups($studentIdList = "", $teacherId){
-		
-		$sql = "SELECT nonflat.userId, nonflat.username, nonflat.idNumber, GROUP_CONCAT(groupId SEPARATOR ', ') as \"groups\" FROM 
+		$sql = "SELECT nonflat.userId, nonflat.username, nonflat.idNumber, GROUP_CONCAT('<a href=\"/editGroup.php?g=', groupId, '\">', grname,'</a>' SEPARATOR '<br/> ' ) as \"groups\" FROM 
 		(
-			SELECT u.id as userId, username, idNumber, g.groupId FROM user u
-			JOIN(SELECT * FROM studentsingroup) g ON u.id = g.studentId
+			SELECT u.id as userId, username, idNumber, g.groupId, gr.name as grname FROM user u
+			JOIN (SELECT * FROM studentsingroup) g ON u.id = g.studentId
+			JOIN groups gr ON g.groupId = gr.id
 			WHERE g.groupId in (SELECT id FROM groups WHERE professor=$teacherId)
 			AND u.id in ($studentIdList)
 		) nonflat
-		GROUP BY nonflat.userId,nonflat.username,nonflat.idNumber";
+GROUP BY nonflat.userId,nonflat.username,nonflat.idNumber"
 		
 		if(!$this->_db->query($sql, array())->error()) {
 			if($this->_db->count()) {
