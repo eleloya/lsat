@@ -39,6 +39,7 @@ $teacherGroups = $groups->getGroupsForTeacher($teacherId);
 								 echo "<option value='$group->name'>$group->name</option>";
 		        	 }
 		        ?>
+					</select>
 						</label> 
             </div>
           </div>
