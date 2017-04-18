@@ -270,7 +270,7 @@ class User {
 			WHERE g.groupId in (SELECT id FROM groups WHERE professor=$teacherId)
 			AND u.id in ($studentIdList)
 		) nonflat
-GROUP BY nonflat.userId,nonflat.username,nonflat.idNumber"
+GROUP BY nonflat.userId,nonflat.username,nonflat.idNumber";
 		
 		if(!$this->_db->query($sql, array())->error()) {
 			if($this->_db->count()) {
