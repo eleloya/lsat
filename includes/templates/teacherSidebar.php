@@ -2,6 +2,7 @@
     <div class="sidebar">
         <h5>Teacher actions</h5>
 
+
         <nav>
             <ul class="side-nav">
                 <li class="heading">Grupos</li>
@@ -10,11 +11,12 @@
                 <li><a href="assignCompetences.php">Asignar competencias</a></li>
                 <li><a href="unlockStudent.php">Desbloquear alumno</a></li>
 
-                <li class="divider"></li>
+        <li class="divider"></li>
 
-                <li class="heading">Preguntas</li>
-                <li><a href="questions.php" title="">Ver preguntas existentes</a></li>
-                <li><a href="createQuestion.php" title="">Crear nueva pregunta</a></li>
+        <li class="heading">Preguntas</li>
+        <li><a href="questions.php" title="">Ver preguntas existentes</a></li>
+        <li><a href="createQuestion.php" title="">Crear nueva pregunta</a></li>
+
 
                 <li class="divider"></li>
 
