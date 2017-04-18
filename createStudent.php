@@ -25,7 +25,7 @@ $teacherGroups = $groups->getGroupsForTeacher($teacherId);
     <div class="row">
       <?php include 'includes/templates/teacherSidebar.php' ?>  
       <div class="large-9 medium-8 columns">
-        <h3>Grupo</h3>
+        <h3>Alumnos</h3>
         <h4 class="subheader">Agregar nuevo alumno a grupo existente</h4>
         <hr>  
 
