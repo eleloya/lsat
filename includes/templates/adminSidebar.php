@@ -9,6 +9,11 @@
         <li><a href="manageTeachers.php">Ver / Editar </a></li>
 
         <li class="divider"></li>
+				
+        <li class="heading">Alumnos</li>
+        <li><a href="manageStudents.php">Ver / Editar</a></li>
+								
+        <li class="divider"></li>
 
         <li class="heading">Dificultad</li>
         <li><a href="levels.php" title="Niveles de dificultad para las preguntas">Admnistrar niveles</a></li>
