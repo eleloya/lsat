@@ -66,7 +66,21 @@ $teacherGroups = $groups->getGroupsForTeacher($teacherId);
 <script src="js/foundation.min.js"></script>
 <script>
   $(document).foundation();
-
+	
+	function deleteGroup(gid) {
+		var r = confirm("¿Estas seguro que deseas borra este grupo y toda su historia?");
+		if (r == true) {
+			$.post("controls/doAction.php", { action:"deleteGroup", groupid: gid})
+			.done(function(data) {
+				data = JSON.parse(data);
+				if (data.message = 'success'){
+					window.location.replace('./groups.php?'+gid);
+				}else{
+					alert("Error:\n\n" + data.message);
+				}
+			});
+		}
+	}
 </script>
 </body>
 </html>
