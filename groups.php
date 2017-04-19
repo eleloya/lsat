@@ -46,7 +46,7 @@ $teacherGroups = $groups->getGroupsForTeacher($teacherId);
 
             echo "<tr id='$group->id'> 
             <td> <a href='group.php?id=$group->id'> $group->name </a> </td>
-            <td> <a href='editGroup.php?g=$group->id' class='tiny button secondary'>Editar</a>  <a href='#' onclick='deleteGroup($group->id)' class='button round tiny alert'>Borrar</a>  </td> 
+            <td> <a href='editGroup.php?g=$group->id' class='tiny button secondary'>Editar</a>  <a href='#' onclick='deleteGroup($group->id)' class='button tiny alert'>Borrar</a>  </td> 
           </tr>";
         }
         ?>
