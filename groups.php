@@ -36,7 +36,7 @@ $teacherGroups = $groups->getGroupsForTeacher($teacherId);
          <thead> 
            <tr> 
              <th width="300">Grupo</th> 
-             <th width="300">Editar</th> 
+             <th width="300">Opciones</th> 
            </tr> 
          </thead>
 
@@ -46,7 +46,7 @@ $teacherGroups = $groups->getGroupsForTeacher($teacherId);
 
             echo "<tr id='$group->id'> 
             <td> <a href='group.php?id=$group->id'> $group->name </a> </td>
-            <td> <a href='editGroup.php?g=$group->id' class='tiny button secondary'>Editar</a> </td> 
+            <td> <a href='editGroup.php?g=$group->id' class='tiny button secondary'>Editar</a>  <a href='#' onclick='deleteGroup($group->id)' class='button tiny alert'>Borrar</a>  </td> 
           </tr>";
         }
         ?>
@@ -66,7 +66,21 @@ $teacherGroups = $groups->getGroupsForTeacher($teacherId);
 <script src="js/foundation.min.js"></script>
 <script>
   $(document).foundation();
-
+	
+	function deleteGroup(gid) {
+		var r = confirm("¿Estas seguro que deseas borra este grupo y toda su historia?");
+		if (r == true) {
+			$.post("controls/doAction.php", { action:"deleteGroup", groupid: gid})
+			.done(function(data) {
+				data = JSON.parse(data);
+				if (data.message = 'success'){
+					window.location.replace('./groups.php?'+gid);
+				}else{
+					alert("Error:\n\n" + data.message);
+				}
+			});
+		}
+	}
 </script>
 </body>
 </html>
