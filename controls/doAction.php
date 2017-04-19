@@ -460,6 +460,72 @@ if(Input::exists()) {
 		echo json_encode($response);
 
 		break;
+		
+		case "deleteGroup":
+		try{
+			$user = new User();
+			if($user->data()->role != 'teacher'){
+				$response = array( "message" => "Solo un maestro pueda eliminar grupos");
+				die(json_encode($response));
+			}
+			$gid = Input::get('groupid');
+			
+			//Aqui deberia checar que el gid es numerico y no vacio
+			
+			$db = DB::getInstance();
+			
+			// Borrar asociacion en "competenceingroup" 
+			$sql = "DELETE FROM competenceingroup WHERE groupId = $gid";
+			if($db->query($sql,array())->error()) {
+				throw new Exception('There was a problem deleting the group associations.');
+			}
+			
+			// Borrar asociacion en "studentsingroup" 
+			$sql = "DELETE FROM studentsingroup WHERE groupId = $gid";
+			if($db->query($sql,array())->error()) {
+				throw new Exception('There was a problem deleting the group associations.');
+			}
+			
+			
+			// Por el momento vamos a dejar el historial de la competencia en la db. El algoritmo para limpiarlo
+			// ya esta especificado en los comentarios de esta funcion. Pero francamente es bastante trabajo para php.
+			// Lo correcto deberia ser DELETE ON CASCADE CONSTRAINS en la db.
+			// La aplicacion no tendria porque estarse preocupando de mantener consistencia en la db
+			// Esto se debe a un mal diseño. Nosotros tomamos el codigo ya hecho
+			
+			// Borrar el grupo en si
+			$sql = "DELETE FROM groups WHERE id = $gid";
+			if($db->query($sql,array())->error()) {
+				throw new Exception('There was a problem deleting the group.');
+			}
+			
+			/* Algoritmo for properly deleting a group
+					- Borrar asociacion en "competenceingroup" 
+					- Buscar todos los "studentrecord" asociados a un groupId
+						- Buscar todos los "studentprogress" asociados al studenrecord con con "studentRecord".studentProgressId -> "studentprogress".id
+							- Sacar first y las question de "studentprogress"
+							- Borrar todos los "questionsforstudent" between first y las question pasados.
+						- Borrar todos los "studentprogress" pasados.
+					- Borrar todos los "studentrecord" pasados.
+				- Borrar grupo de "groups"
+			*/
+			// Buscar todos los "studentRecord asociados aun groupId"
+			// SELECT * FROM studentrecord sr WHERE sr.groupId = 12
+			// Buscar todos los "studentprogress" asociados al studenrecord con con "studentRecord".studentProgressId "studentprogress".id 
+			// SELECT * FROM studentprogress sp, studentrecord sr WHERE sp.id = sr.studentProgressId AND sr.groupId = 12
+			// Sacar first y las question de "studentprogress"
+			// SELECT firstQuestion, lastQuestion FROM studentprogress sp, studentrecord sr WHERE sp.id = sr.studentProgressId AND sr.groupId = 12
+			// Borrar todos los "questionsforstudent" between first y las question pasadoss
+			
+			
+		} catch(Exception $e) {
+			$response = array( "message" => "Error:005 ".$e->getMessage());
+			die(json_encode($response));
+		}
+		// Si llegamos hasta aca no hubo excepcion alguna y se borro
+		$response = array( "message" => "success");
+		echo json_encode($response);
+		break;
 
 		case "createWeb":
 		$user = new User();
