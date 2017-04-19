@@ -154,6 +154,29 @@ class Competence {
 		}
 	}
 
+	public function updateCompetence($competenceId, $name, $webIds = array()) {
+		$this->update($competenceId, array('name' => $name));
+
+		try {
+			//Borrar y volver a agregar todas las redes para la competencia
+			$table = "websincompetence";
+			if (!$this->_db->delete($table, array("competenceId" , "=" , $competenceId))) {
+				throw new Exception('There was a problem updating the webs in competence.');
+			}
+			
+			foreach ($webIds as $key => $value) {
+				$fields = array("order"=> (intval($key)+1), "webId"=>$value, "competenceId"=> $competenceId);
+				if(!$this->_db->insert($table, $fields)) {
+					throw new Exception('There was a problem creating websincompetence.');
+				}
+			}
+			return true;
+		}
+		catch(PDOException $e){
+			return false;
+		}
+	}
+
 	public function create($fields = array()) {
 		if(!$this->_db->insert($this->_tableName, $fields)) {
 			throw new Exception('There was a problem creating the competence.');

@@ -63,7 +63,8 @@ $allCompetences = $competence->getAllCompetences();
 								echo "Competencia publicada<br><br>";
 							}
 							if ($teacherId == $competence->professor) {
-								echo "<a href=\"competenceDetail.php?competence=$competence->id\" class='tiny button secondary'>Editar</a>";
+								echo "<a href=\"competenceDetail.php?competence=$competence->id\" class='tiny button secondary'>Ponderar</a>";
+								echo "<br><a href=\"newCompetence.php?competence=$competence->id\" class='tiny button secondary'>Editar</a>";
 								echo "<br><a onclick='deleteCompetence($competence->id)' class='tiny button alert'>Borrar</a>";
 							}
 							echo "</td>";
