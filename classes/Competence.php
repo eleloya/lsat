@@ -493,7 +493,7 @@ class Competence {
 
 	public function getValidCompetence($competenceId = null, $teacherId = null) {
 		if ($competenceId == null || $teacherId == null) {
-			return;
+			return false;
 		}
 
 		$competence = $this->getCompetence($competenceId);

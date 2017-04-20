@@ -11,9 +11,14 @@ $allWebs = (new Web())->getAllPublishedWebs();
 $c = new Competence();
 $competenceId = Input::get("competence");
 $websInCompetence = null;
-if ($competenceId != ''){
-	$competence = $c->getCompetence($competenceId);
-	$websInCompetence = $c->getWebsInCompetence($competenceId);
+if ($competenceId != '') {
+	$competence = $c->getValidCompetence($competenceId, $teacherId);
+	
+	if ($competence == false) {
+		$competence = null;
+	} else {
+		$websInCompetence = $c->getWebsInCompetence($competenceId);
+	}
 }
 // var_dump($websInCompetence);
 ?>
