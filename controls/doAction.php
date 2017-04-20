@@ -614,7 +614,7 @@ if(Input::exists()) {
 			$webIds = array_filter(array_unique($webIds));
 			$cleanWebIds = array();
 
-			//Ver que cada webId existe en la BD y qeu puede ser usado para una competencia
+			//Ver que cada webId existe en la BD y que puede ser usado para una competencia
 			$w = new Web();
 			foreach ($webIds as $key => $id) {
 				if( $w->isWebReadyToUseInCompetence($id)){
@@ -634,6 +634,49 @@ if(Input::exists()) {
 		}
 
 		$response = array( "message" => "success", "response" => $competenceId);
+		echo json_encode($response);
+
+		break;
+
+		case "updateCompetence":
+		$user = new User();
+		if ($user->data()->role != 'teacher') {
+			return; /*Solo un maestro puede crear competencia*/
+		}
+
+		$teacherId = $user->data()->id;
+
+		try {
+			$competenceId = Input::get('competenceId');
+			$name = Input::get('name');
+
+			$webIds = Input::get('webIds');
+			$webIds = array_filter(array_unique($webIds));
+			$cleanWebIds = array();
+
+			//Ver que cada webId existe en la BD y que puede ser usado para una competencia
+			$w = new Web();
+			foreach ($webIds as $key => $id) {
+				if ($w->isWebReadyToUseInCompetence($id)){
+					array_push($cleanWebIds, $id);
+				} else {
+					$response = array("message" => "Asegurate que sean ids de redes existentes");
+					die(json_encode($response));
+				}
+			}
+
+			$competence = new Competence();
+			$success = $competence->updateCompetence($competenceId, $name, $cleanWebIds);
+
+		} catch(Exception $e) {
+			$response = array("message" => "Error:006 ".$e->getMessage());
+			die(json_encode($response));
+		}
+		if (!$success) {
+			$response = array("message" => "Hubo un error guardando los cambios.");
+		} else {
+			$response = array("message" => "success", "response" => $competenceId);
+		}
 		echo json_encode($response);
 
 		break;
