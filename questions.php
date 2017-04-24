@@ -7,7 +7,7 @@ $user->checkIsValidUser('teacher');
 $question = new Question();
 $topic = "";
 $difficulty = "";
-$info = $question->getAllQuestions($topic, $difficulty);
+$info = $question->getAllQuestionsNP();
 
 ?>
 
@@ -62,8 +62,7 @@ $info = $question->getAllQuestions($topic, $difficulty);
 						}            
                     echo " <td> $question->text </td>
                     <td> $question->difficulty </td>";
-                    echo "<td> <a href=\"webDetail.php?web=$web->id\" class='tiny button primary'>Editar/pendiente</a>
-                    <a href=\"webDetail.php?web=$web->id\" class='tiny button alert'>Eliminar/pendiente</a></td></tr>";
+                    echo "<td><br><a href=\"questionDetail.php?question=$question->id\" class='tiny button primary'>Editar</a></td></tr>";
             }
 
          ?>

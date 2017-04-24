@@ -32,32 +32,34 @@ $answers = $answer->getAnswersForQuestionList($questions);
 
 ?>
 
-<!doctype html>
-<html class="no-js" lang="en">
-<head>
-	<title>LSAT | Redes</title>
-	<?php include 'includes/templates/headTags.php' ?>
-</head>
+    <!doctype html>
+    <html class="no-js" lang="en">
 
-<body>
+    <head>
+        <title>LSAT | Redes</title>
+        <?php include 'includes/templates/headTags.php' ?>
+    </head>
 
-	<?php include 'includes/templates/header.php' ?>
+    <body>
 
-	<section class="scroll-container" role="main">
+        <?php include 'includes/templates/header.php' ?>
 
-		<div class="row">
+        <section class="scroll-container" role="main">
 
-			<?php include 'includes/templates/teacherSidebar.php' ?>
-			<div class="large-9 medium-8 columns">
+            <div class="row">
 
-				<h3>
-					<?php echo $webName->name; ?> para competencia:  <?php echo $competence->name; ?>
-				</h3>
-				<h4 class="subheader"> Asignar ponderacion a cada respuesta </h4>
+                <?php include 'includes/templates/teacherSidebar.php' ?>
+                <div class="large-9 medium-8 columns">
 
-				<!-- WAAA-->
-				<div class="">
-					<?php
+                    <h3>
+                        <?php echo $webName->name; ?> para competencia:
+                        <?php echo $competence->name; ?>
+                    </h3>
+                    <h4 class="subheader"> Asignar ponderacion a cada respuesta </h4>
+
+                    <!-- WAAA-->
+                    <div class="">
+                        <?php
 						foreach($levels as $level) {
 							echo "<div class='webExplorerLevel'>
 											<h6 class='panel-title'>Nivel $level</h6>
@@ -77,7 +79,7 @@ $answers = $answer->getAnswersForQuestionList($questions);
                             <table width='100%'>
                               <thead>
                                 <tr>
-																	<th width='10%'>Ponderaci&oacuten</th>
+				                  <th width='10%'>Ponderaci&oacuten</th>
                                   <th width='45%'>Respuesta</th>
                                   <th width='45%'>Feedback</th>
                                 </tr>
@@ -125,22 +127,22 @@ $answers = $answer->getAnswersForQuestionList($questions);
 						}
 
 					?>
-				</div>
+                    </div>
 
-				<a href="#" onclick="gradeWeb()" class="button round small right">Guardar</a>
-			</div>
-		</div>
-	</section>
+                    <a href="#" onclick="gradeWeb()" class="button round small right">Guardar</a>
+                </div>
+            </div>
+        </section>
 
-	<?php include 'includes/templates/footer.php' ?>
+        <?php include 'includes/templates/footer.php' ?>
 
 
-	<script src="js/vendor/jquery.js"></script>
-	<script src="js/foundation.min.js"></script>
-	<script>
-		$(document).foundation();
+        <script src="js/vendor/jquery.js"></script>
+        <script src="js/foundation.min.js"></script>
+        <script>
+            $(document).foundation();
 
-		var webId = <?php
+            var webId = <?php
 		if (isset($web)) {
 			echo "$webId";
 		}else{
@@ -148,7 +150,7 @@ $answers = $answer->getAnswersForQuestionList($questions);
 		}
 		?>;
 
-		var cId = <?php
+            var cId = <?php
 		if (isset($competenceId)) {
 			echo "$competenceId";
 		}else{
@@ -156,37 +158,45 @@ $answers = $answer->getAnswersForQuestionList($questions);
 		}
 		?>;
 
-		function gradeWeb() {
-			var answers = $(".answer");
-			var len = answers.length;
-			var data = {};
+            function gradeWeb() {
+                var answers = $(".answer");
+                var len = answers.length;
+                var data = {};
 
-			for(var i=0; i<len; i++) {
-				var item = $(answers[i]);
-				var name = item.attr('name').split('-');
-			    var q = name[0];      //id pregunta
-			    var a = name[1];      //respuesta
-			    var p =  item.val();  //ponderacion
-			    if(p==""){ p = "1"}
-			    var index = q+"-"+a;
-			    data[index] = p;
-			}
+                for (var i = 0; i < len; i++) {
+                    var item = $(answers[i]);
+                    var name = item.attr('name').split('-');
+                    var q = name[0]; //id pregunta
+                    var a = name[1]; //respuesta
+                    var p = item.val(); //ponderacion
+                    if (p == "") {
+                        p = "1"
+                    }
+                    var index = q + "-" + a;
+                    data[index] = p;
+                }
 
-			$.post( "controls/doAction.php", { action:"gradeWeb", cId: cId, webId: webId, data: data})
-			.done(function( data ) {
+                $.post("controls/doAction.php", {
+                        action: "gradeWeb",
+                        cId: cId,
+                        webId: webId,
+                        data: data
+                    })
+                    .done(function(data) {
 
-				data = JSON.parse(data);
-				if(data.message == 'success'){
-					window.location.replace('./competenceDetail.php?competence='+cId);
-				}else{
-					alert("Error: \n\n" + data.message);
-				}
+                        data = JSON.parse(data);
+                        if (data.message == 'success') {
+                            window.location.replace('./competenceDetail.php?competence=' + cId);
+                        } else {
+                            alert("Error: \n\n" + data.message);
+                        }
 
-			});
+                    });
 
-			console.log(data);
-		}
+                console.log(data);
+            }
 
-	</script>
-</body>
-</html>
+        </script>
+    </body>
+
+    </html>

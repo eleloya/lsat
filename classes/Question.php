@@ -68,6 +68,17 @@ class Question {
 
 		return array();
 	}
+    
+    public function getAllQuestionsNP(){
+		$sql = "SELECT * FROM question";
+		if(!$this->_db->query($sql, array())->error()) {
+			if($this->_db->count()) {
+				return $this->_db->results();
+			}
+		}
+
+		return array();
+	}
 
 	public function getNextQuestion($studentId, $groupId, $competenceId){
 		try{
