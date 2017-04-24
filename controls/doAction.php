@@ -427,6 +427,106 @@ if(Input::exists()) {
 		$response = array( "message" => "success");
 		echo json_encode($response);
 		break;
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        case "updateQuestion":
+        $user = new User();
+		if($user->data()->role != 'teacher'){
+			return; /*Solo un maestro puede crear preguntas*/
+		}
+
+		//Necesitamos el id del profesor, que es el usuario logueado para ligar las preguntas con el
+		$teacherId = $user->data()->id;
+
+		try {
+			//Esto lo usamos para convertir el objeto que le mandamos con toda la informacion
+            //De esta forma nos queda como un hash map en el que podemos accesar a todos los valores facilmente
+			$data = json_decode($_POST['data'],true);
+			//Datos de la pregunta
+			$text = $data['text'];
+
+			//Validar que la pregunta tenga texto
+			if (empty($text)) {
+				$response = array( "message" => "No se puede actualizar una pregunta vacia");
+				die(json_encode($response));
+			}
+
+			//var_dump($text);
+			//$data = json_decode(stripslashes($_POST['data']),true);
+			//var_dump($data);
+            $id = $data['questionId'];
+			$url  =  $data['url'];
+			$grade = $data['grade'];
+			$topic = $data['topic'];
+
+			$db = DB::getInstance();
+
+			$options = array(4);
+			//Crear las 4 respuestas
+			$ans = new Answer();
+			for ($i = 1; $i <= 4; $i++) {
+				if (empty($data['ans'.$i]) && empty($data['urla'.$i]) ) {
+					$response = array( "message" => "No se puede actualizar una pregunta sin respuesta");
+					die(json_encode($response));
+				}
+
+                
+				//Crear la respuesta
+				$ans->update($data['ansid'.$i], array(
+					'text' => $data['ans'.$i],
+					'textFeedback' => $data['feed'.$i],
+					'urlImage' => $data['urla'.$i],
+					'imageFeedback' => $data['urlf'.$i],
+    			'correct' => ($i==1)? true : false,  //La primera respuesta siempre sera la correcta
+    			));
+
+    			//Obtener el id de la respuesta
+				$options[$i-1] = $data['ansid'.$i];
+			}
+
+			// Crear la pregunta
+			$question = new Question();
+			$question->update($id, array(
+				'professor' => intval($teacherId),
+				'topic' => intval($topic),
+				'difficulty' => intval($grade),
+				'urlImage' => $url,
+				'text' => $text,
+				'optionA' => $options[0],
+				'optionB' => $options[1],
+				'optionC' => $options[2],
+				'optionD' => $options[3]
+				));
+
+			// Obtener el id que se le asigno en la BD
+//			$questionId = intval($db->lastInsertId());
+
+
+		} catch(Exception $e) {
+			$response = array( "message" => "Error:005 ".$e->getMessage());
+			die(json_encode($response));
+		}
+		$response = array( "message" => "success");
+		echo json_encode($response);
+		break;
+            
+            
+            
+            
+            
+            
+            
+            
+            
 
 		case "filterQuestions":
 
