@@ -62,8 +62,7 @@ $info = $question->getAllQuestionsNP();
 						}            
                     echo " <td> $question->text </td>
                     <td> $question->difficulty </td>";
-                    echo "<td> <a href=\"questionDetail.php?question=$question->id\" class='tiny button primary'>Editar/pendiente</a>";
-                    echo "<a href=\"webDetail.php?question=$question->id\" class='tiny button alert'>Eliminar/pendiente</a></td></tr>";
+                    echo "<td><br><a href=\"questionDetail.php?question=$question->id\" class='tiny button primary'>Editar</a></td></tr>";
             }
 
          ?>

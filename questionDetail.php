@@ -244,7 +244,7 @@ $answerD = $answer->getAnswer($question[0]->optionD);
 
                         data = JSON.parse(data);
                         if (data.message == 'success') {
-                            alert("La pregunta fue creada");
+                            alert("La pregunta fue actualizada");
                             window.location.reload();
                         } else {
                             alert("Error: \n\n" + data.message);
